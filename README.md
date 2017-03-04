@@ -1,3 +1,3 @@
-# java-road-to-fp-example
+# java-fp-example
 
 TO DO
