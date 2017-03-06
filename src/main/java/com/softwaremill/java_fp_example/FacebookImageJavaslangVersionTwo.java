@@ -20,7 +20,7 @@ public class FacebookImageJavaslangVersionTwo implements FacebookImage {
 
     @Override
     public String extractImageAddressFrom(String pageUrl) {
-        CheckedSupplier<Document> parseDocument = () -> Jsoup.parse(new URL(pageUrl), 10000);
+        CheckedSupplier<Document> parseDocument = () -> Jsoup.parse(new URL(pageUrl), TEN_SECONDS);
         CheckedFunction<Document, List<Element>> findElementsWithPropertyTag =
                 document -> ofAll(document.head().getElementsByTag("meta"));
         CheckedFunction<List<Element>, List<Element>> findElementsWithFacebookImageProperty =
