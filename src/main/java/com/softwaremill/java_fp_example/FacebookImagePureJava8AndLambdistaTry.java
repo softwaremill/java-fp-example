@@ -15,10 +15,13 @@ import java.util.function.Predicate;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 
-import static com.softwaremill.java_fp_example.FacebookImagePureJava8AndLambdistaTry.DefaultImage.DEFAULT_IMAGE_VALUE;
+import static com.softwaremill.java_fp_example.DefaultImageEnum.DEFAULT_IMAGE_URL;
 
 @Slf4j
-public class FacebookImagePureJava8AndLambdistaTry implements FacebookImage {
+public class FacebookImagePureJava8AndLambdistaTry {
+
+    private final static String FACEBOOK_IMAGE_TAG = "og:image";
+    private final static int TEN_SECONDS = 10_000;
 
     private static Document downloadAndParse(String pageUrl) throws IOException {
         return Jsoup.parse(new URL(pageUrl), TEN_SECONDS);
@@ -33,31 +36,32 @@ public class FacebookImagePureJava8AndLambdistaTry implements FacebookImage {
     private static final Function<Element, Supplier<String>> getImageUrl = e ->
             () -> e.attr("content");
 
-    @Override
     public String extractImageAddressFrom(String pageUrl) {
-        return Try
-            .apply(() -> downloadAndParse(pageUrl))
-            .map(findMetaElements)
-            .map(elements -> elements
-                    .filter(withFacebookImage)
-                    .findFirst()
-                    .map(getImageUrl)
-                    .orElse(() -> DEFAULT_IMAGE_VALUE.getBecause(log ->
-                            log.warn("No {} found for blog post {}", FACEBOOK_IMAGE_TAG, pageUrl))))
-            .recover(error -> DEFAULT_IMAGE_VALUE.getBecause(log ->
-                    log.error("Unable to extract og:image from url {}. Problem: {}", pageUrl, error.getMessage())))
-            .get();
+        Try<String> recover = Try.apply(() -> downloadAndParse(pageUrl))
+                .map(findMetaElements)
+                .map(elements -> elements
+                        .filter(withFacebookImage)
+                        .findFirst()
+                        .map(getImageUrl)
+                        .orElse(() -> DEFAULT_IMAGE_URL.getBecause(log ->
+                                log.warn("No {} found for blog post {}", FACEBOOK_IMAGE_TAG, pageUrl))))
+                .recover(error -> DEFAULT_IMAGE_URL.getBecause(log ->
+                        log.error("Unable to extract og:image from url {}. Problem: {}", pageUrl, error.getMessage())));
+        return recover.get();
     }
+    
+}
 
-    public enum DefaultImage {
+@Slf4j
+enum DefaultImageEnum {
 
-        DEFAULT_IMAGE_VALUE;
+    DEFAULT_IMAGE_URL;
 
-        String getBecause(Consumer<Logger> c) {
-            c.accept(log);
-            return DEFAULT_IMAGE;
-        }
+    String getBecause(Consumer<Logger> c) {
+        c.accept(log);
+        return "https://softwaremill.com/images/logo-vertical.023d8496.png";
     }
+    
 }
 
 

@@ -13,9 +13,12 @@ import java.net.URL;
 import static javaslang.collection.List.ofAll;
 
 @Slf4j
-public class FacebookImageJavaslangVersionOne implements FacebookImage {
+public class FacebookImageJavaslangVersionOne {
 
-    @Override
+    private final static String FACEBOOK_IMAGE_TAG = "og:image";
+    private final static String DEFAULT_IMAGE = "https://softwaremill.com/images/logo-vertical.023d8496.png";
+    private final static int TEN_SECONDS = 10_000;
+
     public String extractImageAddressFrom(String pageUrl) {
         Try<String> facebookImage = Try.of(() -> {
                 Document document = Jsoup.parse(new URL(pageUrl), TEN_SECONDS);

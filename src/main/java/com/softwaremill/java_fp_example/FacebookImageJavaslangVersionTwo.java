@@ -16,9 +16,12 @@ import java.util.function.Function;
 import static javaslang.collection.List.ofAll;
 
 @Slf4j
-public class FacebookImageJavaslangVersionTwo implements FacebookImage {
+public class FacebookImageJavaslangVersionTwo {
 
-    @Override
+    private final static String FACEBOOK_IMAGE_TAG = "og:image";
+    private final static String DEFAULT_IMAGE = "https://softwaremill.com/images/logo-vertical.023d8496.png";
+    private final static int TEN_SECONDS = 10_000;
+
     public String extractImageAddressFrom(String pageUrl) {
         CheckedSupplier<Document> parseDocument = () -> Jsoup.parse(new URL(pageUrl), TEN_SECONDS);
         CheckedFunction<Document, List<Element>> findElementsWithPropertyTag =
@@ -34,13 +37,13 @@ public class FacebookImageJavaslangVersionTwo implements FacebookImage {
         Function<Element, String> content = getContentValue -> getContentValue.attr("content");
 
         return Try.of(parseDocument)
-                .mapTry(findElementsWithPropertyTag)
-                .mapTry(findElementsWithFacebookImageProperty)
-                .peek(warnIfEmpty)
-                .mapTry(findFirst)
-                .toOption()
-                .map(content)
-                .getOrElse(DEFAULT_IMAGE);
+            .mapTry(findElementsWithPropertyTag)
+            .mapTry(findElementsWithFacebookImageProperty)
+            .peek(warnIfEmpty)
+            .mapTry(findFirst)
+            .toOption()
+            .map(content)
+            .getOrElse(DEFAULT_IMAGE);
     }
     
 }
