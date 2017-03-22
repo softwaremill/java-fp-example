@@ -21,8 +21,8 @@ class FacebookImageSpec extends Specification {
 
         where:
         postAddress                                                || expectedImageUrl
-        "https://softwaremill.com/the-wrong-abstraction-recap/"    || "https://softwaremill.com/images/team-members/chmielarz.6e3a0d1d.jpg"
-        "https://softwaremill.com/using-kafka-as-a-message-queue/" || "https://softwaremill.com/images/team-members/warski.dd6c745b.jpg"
+        "https://softwaremill.com/the-wrong-abstraction-recap/"    || "https://softwaremill.com/images/uploads/2017/02/street-shoe-chewing-gum.0526d557.jpg"
+        "https://softwaremill.com/using-kafka-as-a-message-queue/" || "https://softwaremill.com/images/uploads/2017/02/kmq.93f842cf.png"
         "https://twitter.com/softwaremill"                         || DEFAULT_IMAGE
         "http://i-do-not-exist.pl"                                 || DEFAULT_IMAGE
     }
@@ -37,8 +37,8 @@ class FacebookImageSpec extends Specification {
 
         where:
         postAddress                                                || expectedImageUrl
-        "https://softwaremill.com/the-wrong-abstraction-recap/"    || "https://softwaremill.com/images/team-members/chmielarz.6e3a0d1d.jpg"
-        "https://softwaremill.com/using-kafka-as-a-message-queue/" || "https://softwaremill.com/images/team-members/warski.dd6c745b.jpg"
+        "https://softwaremill.com/the-wrong-abstraction-recap/"    || "https://softwaremill.com/images/uploads/2017/02/street-shoe-chewing-gum.0526d557.jpg"
+        "https://softwaremill.com/using-kafka-as-a-message-queue/" || "https://softwaremill.com/images/uploads/2017/02/kmq.93f842cf.png"
         "https://twitter.com/softwaremill"                         || DEFAULT_IMAGE
         "http://i-do-not-exist.pl"                                 || DEFAULT_IMAGE
     }
@@ -53,8 +53,8 @@ class FacebookImageSpec extends Specification {
 
         where:
         postAddress                                                || expectedImageUrl
-        "https://softwaremill.com/the-wrong-abstraction-recap/"    || "https://softwaremill.com/images/team-members/chmielarz.6e3a0d1d.jpg"
-        "https://softwaremill.com/using-kafka-as-a-message-queue/" || "https://softwaremill.com/images/team-members/warski.dd6c745b.jpg"
+        "https://softwaremill.com/the-wrong-abstraction-recap/"    || "https://softwaremill.com/images/uploads/2017/02/street-shoe-chewing-gum.0526d557.jpg"
+        "https://softwaremill.com/using-kafka-as-a-message-queue/" || "https://softwaremill.com/images/uploads/2017/02/kmq.93f842cf.png"
         "https://twitter.com/softwaremill"                         || DEFAULT_IMAGE
         "http://i-do-not-exist.pl"                                 || DEFAULT_IMAGE
     }
@@ -69,8 +69,8 @@ class FacebookImageSpec extends Specification {
 
         where:
         postAddress                                                || expectedImageUrl
-        "https://softwaremill.com/the-wrong-abstraction-recap/"    || "https://softwaremill.com/images/team-members/chmielarz.6e3a0d1d.jpg"
-        "https://softwaremill.com/using-kafka-as-a-message-queue/" || "https://softwaremill.com/images/team-members/warski.dd6c745b.jpg"
+        "https://softwaremill.com/the-wrong-abstraction-recap/"    || "https://softwaremill.com/images/uploads/2017/02/street-shoe-chewing-gum.0526d557.jpg"
+        "https://softwaremill.com/using-kafka-as-a-message-queue/" || "https://softwaremill.com/images/uploads/2017/02/kmq.93f842cf.png"
         "https://twitter.com/softwaremill"                         || DEFAULT_IMAGE
         "http://i-do-not-exist.pl"                                 || DEFAULT_IMAGE
     }
