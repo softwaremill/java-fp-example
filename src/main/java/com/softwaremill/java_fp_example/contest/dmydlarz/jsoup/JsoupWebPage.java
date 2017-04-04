@@ -7,17 +7,18 @@ import lombok.extern.slf4j.Slf4j;
 public final class JsoupWebPage implements WebPage {
     private final JsoupFacebookImage jsoupFacebookImage;
 
-    public JsoupWebPage(String uri, int timeout) {
-        jsoupFacebookImage = new JsoupFacebookImage(new JsoupDocument(uri, timeout));
+    public JsoupWebPage(Document document) {
+        jsoupFacebookImage = new JsoupFacebookImage(document);
     }
 
     @Override
     public String facebookImageOrElse(String fallbackUri) {
-        String facebookImage = fallbackUri;
+        String facebookImage;
         try {
             facebookImage = jsoupFacebookImage.uri();
         } catch (Exception e) {
             log.error("Unable serve Open Graph Image. Problem: {}", e.getMessage());
+            facebookImage = fallbackUri;
         }
         return facebookImage;
     }

@@ -1,5 +1,6 @@
 package com.softwaremill.java_fp_example.contest.dmydlarz.jsoup;
 
+import lombok.ToString;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 
@@ -7,7 +8,8 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-class JsoupDocument {
+@ToString(of = "uri")
+class JsoupDocument implements Document {
     private final String uri;
     private final int timeout;
 
@@ -16,7 +18,8 @@ class JsoupDocument {
         this.timeout = timeout;
     }
 
-    Element head() throws Exception {
+    @Override
+    public Element head() throws Exception {
         try {
             return Jsoup.parse(new URL(uri), timeout).head();
         } catch (MalformedURLException e) {

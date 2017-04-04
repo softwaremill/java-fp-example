@@ -11,9 +11,9 @@ import lombok.extern.slf4j.Slf4j;
 final class JsoupFacebookImage implements FacebookImage {
     private final JsoupElement ogImage;
 
-    JsoupFacebookImage(JsoupDocument head) {
+    JsoupFacebookImage(Document document) {
         this.ogImage = new JsoupElement(new First<>(new Filtered<>(
-                new JsoupTagElements(head, "meta"),
+                new JsoupTagElements(document, "meta"),
                 new JsoupPropertyMask("og:image")
         )));
     }
