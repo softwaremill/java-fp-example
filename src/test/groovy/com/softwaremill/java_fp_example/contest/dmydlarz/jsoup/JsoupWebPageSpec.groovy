@@ -9,32 +9,32 @@ class JsoupWebPageSpec extends Specification {
     static final String DEFAULT_IMAGE = "https://softwaremill.com/images/logo-vertical.023d8496.png"
 
     @Unroll
-    def "it grabs facebook image for: #document"() {
+    def "it grabs facebook image for: #uri"() {
         when:
-            WebPage webPage = new JsoupWebPage(document)
+            WebPage webPage = new JsoupWebPage(uri)
 
         then:
-            webPage.facebookImageOrElse(DEFAULT_IMAGE) == expectedImageUrl
+            webPage.facebookImage() == expectedImageUrl
 
         where:
-            document                                                                                  || expectedImageUrl
-            new JsoupDocument("https://softwaremill.com/the-wrong-abstraction-recap/", TIMEOUT_MS)    || "https://softwaremill.com/images/uploads/2017/02/street-shoe-chewing-gum.0526d557.jpg"
-            new JsoupDocument("https://softwaremill.com/using-kafka-as-a-message-queue/", TIMEOUT_MS) || "https://softwaremill.com/images/uploads/2017/02/kmq.93f842cf.png"
+            uri                                                                                  || expectedImageUrl
+            new JsoupDocument("https://softwaremill.com/the-wrong-abstraction-recap/")    || "https://softwaremill.com/images/uploads/2017/02/street-shoe-chewing-gum.0526d557.jpg"
+            new JsoupDocument("https://softwaremill.com/using-kafka-as-a-message-queue/") || "https://softwaremill.com/images/uploads/2017/02/kmq.93f842cf.png"
             new Document.Fake("fake-og:image-uri")                                                    || "fake-og:image-uri"
     }
 
     @Unroll
-    def "it returns default image for: #document"() {
+    def "it returns default image with Safe wrapper for: #document"() {
         when:
-            WebPage webPage = new JsoupWebPage(document)
+            WebPage webPage = new WebPage.Safe(new JsoupWebPage(document), DEFAULT_IMAGE)
 
         then:
-            webPage.facebookImageOrElse(DEFAULT_IMAGE) == DEFAULT_IMAGE
+            webPage.facebookImage() == DEFAULT_IMAGE
 
         where:
             document << [
-                    new JsoupDocument("https://twitter.com/softwaremill", TIMEOUT_MS),
-                    new JsoupDocument("http://i-do-not-exist.pl", TIMEOUT_MS),
+                    new JsoupDocument("https://twitter.com/softwaremill"),
+                    new JsoupDocument("http://i-do-not-exist.pl"),
                     new Document.Empty()
             ]
     }

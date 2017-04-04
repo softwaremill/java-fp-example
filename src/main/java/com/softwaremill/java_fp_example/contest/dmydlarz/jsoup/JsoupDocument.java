@@ -1,6 +1,5 @@
 package com.softwaremill.java_fp_example.contest.dmydlarz.jsoup;
 
-import lombok.ToString;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
 
@@ -8,14 +7,18 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-@ToString(of = "uri")
 class JsoupDocument implements Document {
+    private static final int DEFAULT_TIMEOUT = 10_000;
     private final String uri;
     private final int timeout;
 
     JsoupDocument(String uri, int timeout) {
         this.uri = uri;
         this.timeout = timeout;
+    }
+
+    JsoupDocument(String uri) {
+        this(uri, DEFAULT_TIMEOUT);
     }
 
     @Override
@@ -27,5 +30,10 @@ class JsoupDocument implements Document {
         } catch (IOException e) {
             throw new Exception(String.format("Unable to connect to: %s", uri), e);
         }
+    }
+
+    @Override
+    public String toString() {
+        return uri;
     }
 }
