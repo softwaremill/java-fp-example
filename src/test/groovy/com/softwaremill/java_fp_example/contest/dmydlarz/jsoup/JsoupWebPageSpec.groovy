@@ -17,10 +17,10 @@ class JsoupWebPageSpec extends Specification {
             webPage.facebookImage() == expectedImageUrl
 
         where:
-            uri                                                                              || expectedImageUrl
-            new UriJsoupDocument("https://softwaremill.com/the-wrong-abstraction-recap/")    || "https://softwaremill.com/images/uploads/2017/02/street-shoe-chewing-gum.0526d557.jpg"
-            new UriJsoupDocument("https://softwaremill.com/using-kafka-as-a-message-queue/") || "https://softwaremill.com/images/uploads/2017/02/kmq.93f842cf.png"
-            new JsoupDocument.Fake("fake-og:image-uri")                                      || "fake-og:image-uri"
+            uri                                                                                 || expectedImageUrl
+            new RemoteJsoupDocument("https://softwaremill.com/the-wrong-abstraction-recap/")    || "https://softwaremill.com/images/uploads/2017/02/street-shoe-chewing-gum.0526d557.jpg"
+            new RemoteJsoupDocument("https://softwaremill.com/using-kafka-as-a-message-queue/") || "https://softwaremill.com/images/uploads/2017/02/kmq.93f842cf.png"
+            new JsoupDocument.Fake("fake-og:image-uri")                                         || "fake-og:image-uri"
     }
 
     @Unroll
@@ -33,8 +33,8 @@ class JsoupWebPageSpec extends Specification {
 
         where:
             document << [
-                    new UriJsoupDocument("https://twitter.com/softwaremill"),
-                    new UriJsoupDocument("http://i-do-not-exist.pl"),
+                    new RemoteJsoupDocument("https://twitter.com/softwaremill"),
+                    new RemoteJsoupDocument("http://i-do-not-exist.pl"),
                     new JsoupDocument.Empty()
             ]
     }

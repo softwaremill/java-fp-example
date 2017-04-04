@@ -1,6 +1,5 @@
 package com.softwaremill.java_fp_example.contest.dmydlarz.jsoup;
 
-import com.softwaremill.java_fp_example.contest.dmydlarz.FacebookImage;
 import com.softwaremill.java_fp_example.contest.dmydlarz.functional.Filtered;
 import com.softwaremill.java_fp_example.contest.dmydlarz.functional.First;
 import lombok.EqualsAndHashCode;
@@ -8,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @EqualsAndHashCode
-final class JsoupFacebookImage implements FacebookImage {
+final class JsoupFacebookImage {
     private final JsoupElement ogImage;
 
     JsoupFacebookImage(JsoupDocument jsoupDocument) {
@@ -18,8 +17,7 @@ final class JsoupFacebookImage implements FacebookImage {
         )));
     }
 
-    @Override
-    public String uri() throws Exception {
+    String uri() throws Exception {
         try {
             return ogImage.content();
         } catch (Exception e) {

@@ -7,17 +7,17 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-class UriJsoupDocument implements JsoupDocument {
+class RemoteJsoupDocument implements JsoupDocument {
     private static final int DEFAULT_TIMEOUT = 10_000;
     private final String uri;
     private final int timeout;
 
-    UriJsoupDocument(String uri, int timeout) {
+    RemoteJsoupDocument(String uri, int timeout) {
         this.uri = uri;
         this.timeout = timeout;
     }
 
-    UriJsoupDocument(String uri) {
+    RemoteJsoupDocument(String uri) {
         this(uri, DEFAULT_TIMEOUT);
     }
 
