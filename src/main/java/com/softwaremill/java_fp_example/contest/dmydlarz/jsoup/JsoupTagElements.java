@@ -18,7 +18,7 @@ final class JsoupTagElements implements Iterable<Element> {
         try {
             return document.head().getElementsByTag(tag).iterator();
         } catch (Exception e) {
-            throw new RuntimeException(String.format("Can't get %s elements. %s", tag, e.getMessage()), e);
+            throw new RuntimeException(String.format("Can't get HEAD element. %s", e.getMessage()), e);
         }
     }
 }

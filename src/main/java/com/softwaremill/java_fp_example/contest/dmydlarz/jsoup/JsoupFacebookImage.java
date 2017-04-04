@@ -23,7 +23,7 @@ final class JsoupFacebookImage implements FacebookImage {
         try {
             return ogImage.content();
         } catch (Exception e) {
-            throw new Exception(String.format("Can't get og:image content. %s", e.getMessage()), e);
+            throw new Exception(String.format("Can't get og:image. %s", e.getMessage()), e);
         }
     }
 }

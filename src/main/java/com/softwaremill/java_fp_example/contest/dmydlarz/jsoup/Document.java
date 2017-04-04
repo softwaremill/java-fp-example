@@ -15,13 +15,14 @@ public interface Document {
     }
 
     final class Fake implements Document {
+        private static final String BASE_URI = "localhost";
         private final Element head;
 
         Fake(String content) {
             Attributes attributes = new Attributes();
             attributes.put("property", "og:image");
             attributes.put("content", content);
-            this.head = new Element(Tag.valueOf("meta"), "localhost", attributes);
+            this.head = new Element(Tag.valueOf("meta"), BASE_URI, attributes);
         }
 
         @Override

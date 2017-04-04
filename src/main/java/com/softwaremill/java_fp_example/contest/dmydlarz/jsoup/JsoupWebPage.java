@@ -13,13 +13,11 @@ public final class JsoupWebPage implements WebPage {
 
     @Override
     public String facebookImageOrElse(String fallbackUri) {
-        String facebookImage;
         try {
-            facebookImage = jsoupFacebookImage.uri();
+            return jsoupFacebookImage.uri();
         } catch (Exception e) {
             log.error("Unable serve Open Graph Image. Problem: {}", e.getMessage());
-            facebookImage = fallbackUri;
+            return fallbackUri;
         }
-        return facebookImage;
     }
 }
