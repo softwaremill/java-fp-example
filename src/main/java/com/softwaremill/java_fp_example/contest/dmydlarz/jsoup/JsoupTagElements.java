@@ -5,18 +5,18 @@ import org.jsoup.nodes.Element;
 import java.util.Iterator;
 
 final class JsoupTagElements implements Iterable<Element> {
-    private final Document document;
+    private final JsoupDocument jsoupDocument;
     private final String tag;
 
-    JsoupTagElements(Document document, String tag) {
-        this.document = document;
+    JsoupTagElements(JsoupDocument jsoupDocument, String tag) {
+        this.jsoupDocument = jsoupDocument;
         this.tag = tag;
     }
 
     @Override
     public Iterator<Element> iterator() {
         try {
-            return document.head().getElementsByTag(tag).iterator();
+            return jsoupDocument.head().getElementsByTag(tag).iterator();
         } catch (Exception e) {
             throw new RuntimeException(String.format("Can't get HEAD element. %s", e.getMessage()), e);
         }
