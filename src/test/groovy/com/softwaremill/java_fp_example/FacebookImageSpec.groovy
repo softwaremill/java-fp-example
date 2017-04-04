@@ -74,5 +74,5 @@ class FacebookImageSpec extends Specification {
         "https://twitter.com/softwaremill"                         || DEFAULT_IMAGE
         "http://i-do-not-exist.pl"                                 || DEFAULT_IMAGE
     }
-
+    
 }
