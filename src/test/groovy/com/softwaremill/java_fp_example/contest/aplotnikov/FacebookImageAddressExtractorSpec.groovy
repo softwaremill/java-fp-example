@@ -11,7 +11,7 @@ class FacebookImageAddressExtractorSpec extends Specification {
     @Subject
     FacebookImageAddressExtractor extractor = new FacebookImageAddressExtractor()
 
-    void 'should find image url - #expectedImageUrl into #postAddress '() {
+    void 'should find image url - #expectedImageUrl into #postAddress'() {
         expect:
             extractor.extractFrom(postAddress) == expectedImageUrl
         where:
