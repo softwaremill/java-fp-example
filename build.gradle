@@ -4,6 +4,10 @@ plugins {
     id 'groovy'
 }
 
+task wrapper(type: Wrapper) {
+    gradleVersion = '3.4.1'
+}
+
 group 'com.softwaremill'
 version '1.0-SNAPSHOT'
 
