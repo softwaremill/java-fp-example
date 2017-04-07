@@ -1,29 +1,30 @@
+plugins {
+    id 'idea'
+    id 'java'
+    id 'groovy'
+}
+
 group 'com.softwaremill'
 version '1.0-SNAPSHOT'
 
-apply plugin: 'idea'
-apply plugin: 'java'
-apply plugin: 'groovy'
-
-sourceCompatibility = 1.8
-targetCompatibility = 1.8
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
 
 repositories {
     mavenCentral()
 }
 
 dependencies {
-    compile 'io.javaslang:javaslang:2.0.2'
+    compile 'io.javaslang:javaslang:2.0.6'
     compile 'org.jsoup:jsoup:1.10.2'
 
-    compile 'org.slf4j:slf4j-api:1.6.4'
-    compile 'ch.qos.logback:logback-classic:1.0.1'
-    compile 'ch.qos.logback:logback-core:1.0.1'
+    compile 'org.slf4j:slf4j-api:1.7.25'
+    compile 'ch.qos.logback:logback-classic:1.2.2'
+    compile 'ch.qos.logback:logback-core:1.2.2'
 
-    compileOnly "org.projectlombok:lombok:1.16.10"
+    compileOnly 'org.projectlombok:lombok:1.16.16'
 
-    testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
-    testCompile 'org.codehaus.groovy:groovy:2.4.7'
-    testCompile 'cglib:cglib:3.2.2'
-    
+    testCompile 'org.spockframework:spock-core:1.1-groovy-2.4-rc-4'
+    testCompile 'org.codehaus.groovy:groovy:2.4.10'
+    testCompile 'cglib:cglib:3.2.5'
 }
