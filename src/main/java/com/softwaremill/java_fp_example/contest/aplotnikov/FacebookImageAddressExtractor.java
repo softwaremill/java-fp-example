@@ -37,16 +37,16 @@ public class FacebookImageAddressExtractor {
         return parseContentFrom(url).map(toFacebookImageTags).getOrElse(Stream::empty);
     }
 
+    private static Stream<Element> findFacebookImageTags(Document document) {
+        return document.head().select("meta[property=" + FACEBOOK_IMAGE_TAG + ']').stream();
+    }
+
     private static String getContentAttributeFrom(Element element) {
         return element.attr("content");
     }
 
     private Try<Document> parseContentFrom(String url) {
         return Try.of(() -> connect(url).timeout(TEN_SECONDS).get()).onFailure(logErrorFor(url));
-    }
-
-    private static Stream<Element> findFacebookImageTags(Document document) {
-        return document.head().select("meta[property=" + FACEBOOK_IMAGE_TAG + ']').stream();
     }
 
     private Consumer<Throwable> logErrorFor(String url) {
