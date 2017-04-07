@@ -21,6 +21,8 @@ public class FacebookImageAddressExtractor {
 
     private static final Function<Element, String> toContentAttribute = element -> element.attr("content");
 
+    private static final Function<Document, Stream<Element>> toFacebookImageTags = FacebookImageAddressExtractor::findFacebookImageTags;
+
     public String extractFrom(String url) {
         return extractFacebookImageTagsFrom(url)
                 .findFirst()
@@ -34,7 +36,7 @@ public class FacebookImageAddressExtractor {
     private Stream<Element> extractFacebookImageTagsFrom(String url) {
         return parseContentFrom(url)
                 .onFailure(logErrorFor(url))
-                .map(this::toFacebookImageTags)
+                .map(toFacebookImageTags)
                 .getOrElse(Stream::empty);
     }
 
@@ -44,7 +46,7 @@ public class FacebookImageAddressExtractor {
                 .get());
     }
 
-    private Stream<Element> toFacebookImageTags(Document document) {
+    private static Stream<Element> findFacebookImageTags(Document document) {
         return document
                 .head()
                 .select("meta[property=" + FACEBOOK_IMAGE_TAG + ']')
