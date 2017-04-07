@@ -19,7 +19,7 @@ public class FacebookImageAddressExtractor {
 
     private static final int TEN_SECONDS = (int) SECONDS.toMillis(10);
 
-    private static final Function<Element, String> toContentAttribute = element -> element.attr("content");
+    private static final Function<Element, String> toContentAttribute = FacebookImageAddressExtractor::getContentAttributeFrom;
 
     private static final Function<Document, Stream<Element>> toFacebookImageTags = FacebookImageAddressExtractor::findFacebookImageTags;
 
@@ -34,27 +34,22 @@ public class FacebookImageAddressExtractor {
     }
 
     private Stream<Element> extractFacebookImageTagsFrom(String url) {
-        return parseContentFrom(url)
-                .onFailure(logErrorFor(url))
-                .map(toFacebookImageTags)
-                .getOrElse(Stream::empty);
+        return parseContentFrom(url).map(toFacebookImageTags).getOrElse(Stream::empty);
+    }
+
+    private static String getContentAttributeFrom(Element element) {
+        return element.attr("content");
     }
 
     private Try<Document> parseContentFrom(String url) {
-        return Try.of(() -> connect(url)
-                .timeout(TEN_SECONDS)
-                .get());
+        return Try.of(() -> connect(url).timeout(TEN_SECONDS).get()).onFailure(logErrorFor(url));
     }
 
     private static Stream<Element> findFacebookImageTags(Document document) {
-        return document
-                .head()
-                .select("meta[property=" + FACEBOOK_IMAGE_TAG + ']')
-                .stream();
+        return document.head().select("meta[property=" + FACEBOOK_IMAGE_TAG + ']').stream();
     }
 
     private Consumer<Throwable> logErrorFor(String url) {
         return exception -> log.error("Unable to extract og:image from url {}. Problem: {}", url, exception.getMessage());
     }
-
 }
