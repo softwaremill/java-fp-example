@@ -1,6 +1,7 @@
 package com.softwaremill.java_fp_example.contest.maciejdobrowolski;
 
 import static com.softwaremill.java_fp_example.DefaultImage.DEFAULT_IMAGE;
+import static io.reactivex.schedulers.Schedulers.io;
 import static java.util.concurrent.TimeUnit.SECONDS;
 
 import com.github.florent37.retrojsoup.RetroJsoup;
@@ -23,6 +24,7 @@ public class FacebookImage {
 
     public Maybe<String> imageAddress() {
         return pageModel().metaTags()
+                .subscribeOn(io())
                 .compose(defaultOnTimeout())
                 .filter(FacebookImage::isFacebookImageTag)
                 .compose(firstOrDefault())
@@ -52,7 +54,6 @@ public class FacebookImage {
                 .doOnError(e -> log.warn("No {} found for blog post {}", FACEBOOK_IMAGE_TAG, url))
                 .onErrorReturnItem(FALLBACK_META_ENTRY)
                 .toObservable();
-
     }
 
 }
