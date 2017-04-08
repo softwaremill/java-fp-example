@@ -10,6 +10,7 @@ targetCompatibility = 1.8
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
@@ -19,6 +20,12 @@ dependencies {
     compile 'org.slf4j:slf4j-api:1.6.4'
     compile 'ch.qos.logback:logback-classic:1.0.1'
     compile 'ch.qos.logback:logback-core:1.0.1'
+
+    compile 'com.github.florent37:retrojsoup:1.0.3'
+    compile 'com.github.florent37:rxjsoup:1.0.3'
+    compile 'org.jsoup:jsoup:1.10.2'
+    compile 'io.reactivex.rxjava2:rxjava:2.0.8'
+    compileOnly 'com.github.florent37:retrojsoup-compiler:1.0.3'
 
     compileOnly "org.projectlombok:lombok:1.16.10"
 
