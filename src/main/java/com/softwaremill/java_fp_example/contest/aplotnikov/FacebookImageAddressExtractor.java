@@ -33,7 +33,7 @@ public class FacebookImageAddressExtractor {
                 });
     }
 
-    private Stream<Element> extractFacebookImageTagsFrom(String url) {
+    private static Stream<Element> extractFacebookImageTagsFrom(String url) {
         return parseContentFrom(url).map(toFacebookImageTags).getOrElse(Stream::empty);
     }
 
@@ -45,11 +45,11 @@ public class FacebookImageAddressExtractor {
         return element.attr("content");
     }
 
-    private Try<Document> parseContentFrom(String url) {
+    private static Try<Document> parseContentFrom(String url) {
         return Try.of(() -> connect(url).timeout(TEN_SECONDS).get()).onFailure(logErrorFor(url));
     }
 
-    private Consumer<Throwable> logErrorFor(String url) {
+    private static Consumer<Throwable> logErrorFor(String url) {
         return exception -> log.error("Unable to extract og:image from url {}. Problem: {}", url, exception.getMessage());
     }
 }
