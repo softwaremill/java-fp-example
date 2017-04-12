@@ -5,7 +5,6 @@ import spock.lang.Unroll
 
 import static com.softwaremill.java_fp_example.DefaultImage.DEFAULT_IMAGE
 
-
 class FacebookImageSpec extends Specification {
 
     @Unroll
@@ -62,7 +61,7 @@ class FacebookImageSpec extends Specification {
     @Unroll
     def "should test Better Javaslang version with address #postAddress"() {
         when:
-        FacebookImageVersion2Javaslang facebookImage = new FacebookImageVersion2Javaslang(postAddress)
+        FacebookImageVersion3BetterJavaslang facebookImage = new FacebookImageVersion3BetterJavaslang(postAddress)
 
         then:
         facebookImage.getUrl() == expectedImageUrl
@@ -74,5 +73,5 @@ class FacebookImageSpec extends Specification {
         "https://twitter.com/softwaremill"                         || DEFAULT_IMAGE
         "http://i-do-not-exist.pl"                                 || DEFAULT_IMAGE
     }
-    
+
 }
