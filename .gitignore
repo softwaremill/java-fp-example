@@ -1,17 +1,25 @@
 TODO
 
-# IDE
+# IDE - idea
 .idea
 *.ipr
 *.iml
 *.iws
 out
 
+# IDE - eclipse
+.classpath
+.project
+.settings
+bin
 
 # gradle
 .gradle
 .gradle-docker
 build
+
+#maven
+target
 
 # other
 log
@@ -22,3 +30,4 @@ log
 .LSOverride
 
 classes
+/bin/
