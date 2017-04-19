@@ -17,7 +17,17 @@ public class FacebookImageVersion4Nkoder {
     private final static String FACEBOOK_IMAGE_TAG = "og:image";
     private final static int TEN_SECONDS = 10_000;
 
-    public static String extractImageAddressFrom(String pageUrl) {
+    private final String pageUrl;
+
+    public static FacebookImageVersion4Nkoder fromPage(String pageUrl) {
+        return new FacebookImageVersion4Nkoder(pageUrl);
+    }
+
+    private FacebookImageVersion4Nkoder(String pageUrl) {
+        this.pageUrl = pageUrl;
+    }
+
+    public String url() {
         Document document;
         try {
             document = Jsoup.parse(new URL(pageUrl), TEN_SECONDS);
@@ -34,5 +44,4 @@ public class FacebookImageVersion4Nkoder {
         }
         return ogImages.get(0).attr("content");
     }
-
 }

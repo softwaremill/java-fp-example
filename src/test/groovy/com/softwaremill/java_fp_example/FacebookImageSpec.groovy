@@ -78,14 +78,11 @@ class FacebookImageSpec extends Specification {
 
     @Unroll
     def "should test nkoder's version with address #postAddress"() {
-        given:
-        FacebookImageVersion4Nkoder facebookImage = new FacebookImageVersion4Nkoder()
-
         when:
-        String imageAddress = facebookImage.extractImageAddressFrom(postAddress)
+        FacebookImageVersion4Nkoder facebookImage = FacebookImageVersion4Nkoder.fromPage(postAddress)
 
         then:
-        imageAddress == expectedImageUrl
+        facebookImage.url() == expectedImageUrl
 
         where:
         postAddress                                                || expectedImageUrl
