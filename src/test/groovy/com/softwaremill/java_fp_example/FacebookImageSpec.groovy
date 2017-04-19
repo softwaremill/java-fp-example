@@ -1,5 +1,6 @@
 package com.softwaremill.java_fp_example
 
+import com.softwaremill.java_fp_example.contest.nkoder.FacebookImageVersion4Nkoder
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -62,7 +63,7 @@ class FacebookImageSpec extends Specification {
     @Unroll
     def "should test Better Javaslang version with address #postAddress"() {
         when:
-        FacebookImageVersion2Javaslang facebookImage = new FacebookImageVersion2Javaslang(postAddress)
+        FacebookImageVersion3BetterJavaslang facebookImage = new FacebookImageVersion3BetterJavaslang(postAddress)
 
         then:
         facebookImage.getUrl() == expectedImageUrl
@@ -74,5 +75,24 @@ class FacebookImageSpec extends Specification {
         "https://twitter.com/softwaremill"                         || DEFAULT_IMAGE
         "http://i-do-not-exist.pl"                                 || DEFAULT_IMAGE
     }
-    
+
+    @Unroll
+    def "should test nkoder's version with address #postAddress"() {
+        given:
+        FacebookImageVersion4Nkoder facebookImage = new FacebookImageVersion4Nkoder()
+
+        when:
+        String imageAddress = facebookImage.extractImageAddressFrom(postAddress)
+
+        then:
+        imageAddress == expectedImageUrl
+
+        where:
+        postAddress                                                || expectedImageUrl
+        "https://softwaremill.com/the-wrong-abstraction-recap/"    || "https://softwaremill.com/images/uploads/2017/02/street-shoe-chewing-gum.0526d557.jpg"
+        "https://softwaremill.com/using-kafka-as-a-message-queue/" || "https://softwaremill.com/images/uploads/2017/02/kmq.93f842cf.png"
+        "https://twitter.com/softwaremill"                         || DEFAULT_IMAGE
+        "http://i-do-not-exist.pl"                                 || DEFAULT_IMAGE
+    }
+
 }
