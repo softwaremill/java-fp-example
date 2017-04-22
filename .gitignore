@@ -1,7 +1,8 @@
 TODO
 
 # IDE
-.idea
+/.idea/*
+!/.idea/codeStyleSettings.xml
 *.ipr
 *.iml
 *.iws

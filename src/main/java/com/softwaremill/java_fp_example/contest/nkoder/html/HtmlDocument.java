@@ -13,7 +13,7 @@ public class HtmlDocument {
 
     public Stream<HtmlMetaTag> metaTags() {
         return Stream.of(jsoupDocument.head().getElementsByTag("meta"))
-                .flatMap(elements -> elements)
-                .map(element -> new HtmlMetaTag(element));
+                     .flatMap(elements -> elements)
+                     .map(element -> new HtmlMetaTag(element));
     }
 }

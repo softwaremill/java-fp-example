@@ -39,9 +39,9 @@ public class FacebookImageVersion4Nkoder {
 
     private Stream<HtmlMetaTag> metaTagsOfPage(String pageUrl) {
         return Try.of(() -> parsePage(pageUrl))
-                .onFailure(throwable -> logParsingError(this.pageUrl, throwable))
-                .toStream()
-                .flatMap(document -> document.metaTags());
+                  .onFailure(throwable -> logParsingError(this.pageUrl, throwable))
+                  .toStream()
+                  .flatMap(document -> document.metaTags());
     }
 
     private Option<String> firstFacebookImageUrlFrom(Stream<HtmlMetaTag> metaTags) {
