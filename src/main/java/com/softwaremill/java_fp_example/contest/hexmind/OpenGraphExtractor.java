@@ -31,9 +31,7 @@ public class OpenGraphExtractor {
     }
 
     private Elements getMetaElements(Document document) {
-        return document
-            .head()
-            .getElementsByTag("meta");
+        return document.head().getElementsByTag("meta");
     }
 
     private Try<String> findContent(Elements elements) {
