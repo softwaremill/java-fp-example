@@ -20,10 +20,30 @@ dependencies {
     compile 'ch.qos.logback:logback-classic:1.0.1'
     compile 'ch.qos.logback:logback-core:1.0.1'
 
-    compileOnly "org.projectlombok:lombok:1.16.10"
+    compileOnly 'org.projectlombok:lombok:1.16.10'
 
     testCompile 'org.spockframework:spock-core:1.0-groovy-2.4'
     testCompile 'org.codehaus.groovy:groovy:2.4.7'
     testCompile 'cglib:cglib:3.2.2'
-    
+    testCompile 'org.objenesis:objenesis:2.5'
+    testCompile 'com.google.code.findbugs:annotations:3.0.1'
 }
+
+apply plugin: 'pmd'
+apply plugin: 'checkstyle'
+checkstyleMain.source = 'src/main/java/com/softwaremill/java_fp_example/contest'
+checkstyle {
+    toolVersion = '7.6.1'
+}
+
+apply plugin: 'findbugs'
+tasks.withType(FindBugs) {
+    reports {
+        xml.enabled = false
+        html.enabled = true
+    }
+}
+
+apply plugin: 'jacoco'
+test { finalizedBy jacocoTestReport }
+
